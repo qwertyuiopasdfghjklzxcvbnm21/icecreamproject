@@ -1,0 +1,9 @@
+
+/* import chalkboard font */
+@font-face {
+  font-family: "chalkboard";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/frederickathegreat/v15/9Bt33CxNwt7aOctW2xjbCstzwVKsIBVV--SjxbcHcQ2K.woff2) format('woff2');
+}

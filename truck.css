@@ -1,0 +1,30 @@
+body {
+background-image: url(../images/neighborhood.jpg);
+background-size: cover;
+background-position: center;
+height: 100vh;
+}
+
+#truck-window {
+box-sizing: border-box;
+position: absolute;
+top: 41%;
+left: 26.5%;
+width: 27%;
+height: 23%;
+background-color: gray;
+padding: 1% 0;
+}
+
+img[src="images/truck.png"] {
+pointer-events: none;
+}
+
+.ice-cream::after {
+content: '';
+display: block;
+background-image: url("images/empty square.png");
+width: 100%;
+height: 0;
+padding-bottom: 100%;
+}

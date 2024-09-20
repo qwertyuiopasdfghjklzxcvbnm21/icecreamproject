@@ -1,0 +1,153 @@
+
+body {
+background-image: url(images/park.jpg);
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+}
+
+h1 {
+font-size: 80pt;
+font-family: Papyrus, fantasy;
+text-align: center;
+margin: 0;
+}
+
+h2 {
+font-size: 72pt;
+}
+
+.big-container {
+display: flex;
+margin: 3em auto;
+padding: 3em;
+position: relative;
+
+border: 1em solid purple;
+background-color: #9bb0ffba;
+border-radius: 5em;
+box-shadow: rgba(255, 0, 0, 0.5) 1em 1em 2em 1em;
+    flex-direction: row;
+    width: min-content;
+align-items: center;
+}
+
+.cone-container {
+flex-shrink: 0;
+position: relative;
+}
+
+.cone-container::before {
+background-image: url("images/waffle cone.png");
+background-size: 100%;
+background-repeat: no-repeat;
+background-position: bottom;
+position: absolute;
+width: 100%;
+height: 100%;
+bottom: 0;
+content: "";
+}
+
+.cone-container::after {
+background-image: url("images/waffle cone front.png");
+background-size: 100%;
+background-repeat: no-repeat;
+background-position: bottom;
+position: absolute;
+width: 100%;
+height: 100%;
+bottom: 0;
+content: "";
+}
+
+
+.scoop-container {
+position: relative;
+display: flex;
+flex-direction: column-reverse;
+width: 20vw;
+padding-bottom: 30vw;
+justify-content: left;
+}
+
+
+.text-container {
+flex-grow: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 38pt;
+font-family: serif;
+padding: 0 1em;
+margin-bottom: 1em;
+width: 35vw;
+align-self: flex-start;
+}
+
+.scoop {
+width: 20vw;
+height: 20vw;
+flex-basis: 15vw;
+position: relative;
+position: relative;
+}
+
+.scoop::before {
+content: '';
+position: absolute;
+background-color: var(--scoop-color);
+border-radius: 50%;
+overflow: hidden;
+width: 20vw;
+height: 20vw;
+background-image: url("images/scoop.png");
+background-size: contain;
+}
+
+.cone-container > .scoop-container {
+flex-direction: column-reverse;
+}
+
+.split {
+flex-direction: row-reverse;  /* row/column */
+width: 50vw; /* 15 * 2 + 20 */
+padding-bottom: 10vw; /* less/more */
+}
+
+.topping {
+top: 0;
+}
+
+.animated {
+top: -100vh;
+animation: 1s drop ease-in forwards; 
+}
+
+.cone-container .topping {
+width: 100%;
+position: absolute;
+}
+
+.split-container .topping {
+width: 133.33%;
+position: absolute;
+}
+
+.topping[src="images/whip.png"] {
+margin-top: -10vw;
+}
+
+ul {
+margin: auto;
+}
+
+@keyframes drop {
+  from {
+    top: -100vh;
+  }
+
+  to {
+    top: 0;
+  }
+}

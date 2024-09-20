@@ -1,0 +1,193 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>Hex Color Picker</title>
+<style>
+
+#output {
+width: 10em;
+height: 10em;
+border: .2em solid black;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    background-image: inherit;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1em;
+  height: 1em;
+  cursor: ew-resize;
+  background: black;
+  color: #43e5f7;
+  border-radius: 50%;
+  border: 0.15em solid white;
+}
+
+.arrows {
+display: inline-block;
+width: 1em;
+height: 1em;
+cursor: default;
+}
+
+.arrow {
+    transform: scaleY(0.5);
+    transform-origin: top;
+    height: 50%;
+}
+
+main {
+transform: scale(2);
+}
+
+@media screen and (max-width: 900px), 
+       screen and (max-height: 650px) {
+  main {
+    transform: scale(1.5);
+  }
+}
+
+@media screen and (max-width: 650px),
+       screen and (max-height: 500px) {
+  main {
+    transform: scale(1);
+  }
+}
+
+</style>
+</head>
+<body style="display: flex; justify-content: center; align-items: center; margin: 0; height: 100%;">
+
+<main>
+
+<div style="display: flex; align-items: center;">
+
+<div style="display: grid; grid-template-columns: 2fr 8fr 2fr; width: min-content; gap: 1em; padding: 1em;">
+
+<div>
+red:
+</div>
+<div>
+<input type="range" max="100" onInput="update(this, 'red')" value="0" id="slider-red">
+</div>
+<div class="arrows" data-color="red"><div data-val="1" class="arrow">▲</div><div data-val="-1" class="arrow">▼</div></div>
+
+<div>
+green:
+</div>
+<div>
+<input type="range" max="100" onInput="update(this, 'green')" value="0" id="slider-green">
+</div>
+<div class="arrows" data-color="green"><div data-val="1" class="arrow">▲</div><div data-val="-1" class="arrow">▼</div></div>
+
+<div>
+blue:
+</div>
+<div>
+<input type="range" max="100" onInput="update(this, 'blue')" value="0" id="slider-blue">
+</div>
+<div class="arrows" data-color="blue"><div data-val="1" class="arrow">▲</div><div data-val="-1" class="arrow">▼</div></div>
+
+</div>
+
+<div>
+
+<div id="output"></div>
+
+</div>
+
+</div>
+
+<div>
+
+<div style="display: grid; grid-template-columns: 3fr 2fr; gap: 1em; padding: 1em;">
+<div></div> <div>Percent</div>
+<div>Red: </div> <div id="percent-red"></div>
+<div>Green: </div> <div id="percent-green"></div>
+<div>Blue: </div> <div id="percent-blue"></div>
+</div>
+
+</main>
+
+<script>
+
+var output = document.querySelector("#output");
+
+var percentRed = document.querySelector("#percent-red");
+var percentGreen = document.querySelector("#percent-green");
+var percentBlue = document.querySelector("#percent-blue");
+
+var redSlider = document.querySelector("#slider-red").parentNode;
+var greenSlider = document.querySelector("#slider-green").parentNode;
+var blueSlider = document.querySelector("#slider-blue").parentNode;
+
+
+var sliders = {
+	"red": document.querySelector("#slider-red"),
+	"green": document.querySelector("#slider-green"),
+	"blue": document.querySelector("#slider-blue")
+};
+
+var arrows = document.querySelectorAll(".arrow");
+arrows.forEach( el => { el.addEventListener('mousedown', arrowDown ); el.addEventListener('mouseup', arrowUp ); el.addEventListener('mouseout', arrowUp ); });
+
+var backgroundColor = { red: 0, green: 0, blue: 0 };
+
+
+function arrowTick(e)
+{
+var c = e.target.parentElement.getAttribute("data-color");
+var d = Number( e.target.getAttribute("data-val") );
+e.target.style.color = "red";
+sliders[c].value = Number(sliders[c].value) + d;
+update(sliders[c], c);
+}
+
+var arrowInt;
+
+function arrowDown(e)
+{
+arrowTick(e);
+arrowAutoTimer = setTimeout( () => arrowInt = setInterval( () => arrowTick(e), 100 ), 500 );
+e.preventDefault();
+}
+
+function arrowUp(e)
+{
+var c = e.target.parentElement.getAttribute("data-color");
+e.target.style.color = "initial";
+clearTimeout(arrowAutoTimer);
+clearInterval(arrowInt);
+}
+
+function update(self, c)
+{
+if (self && c) backgroundColor[c] = self.value;
+
+output.style.backgroundColor = `rgb( ${backgroundColor.red}%, ${backgroundColor.green}%, ${backgroundColor.blue}% )`;
+
+percentRed.innerHTML = `${(backgroundColor.red).toLocaleString(undefined, { maximumFractionDigits: 1 }) }%`;
+percentGreen.innerHTML = `${(backgroundColor.green).toLocaleString(undefined, { maximumFractionDigits: 1 }) }%`;
+percentBlue.innerHTML = `${(backgroundColor.blue).toLocaleString(undefined, { maximumFractionDigits: 1 }) }%`;
+
+redSlider.style.backgroundImage = `linear-gradient(90deg,
+rgb(0%, ${backgroundColor.green}%, ${backgroundColor.blue}%),
+rgb(100%, ${backgroundColor.green}%, ${backgroundColor.blue}%))`;
+
+greenSlider.style.backgroundImage = `linear-gradient(90deg,
+rgb(${backgroundColor.red}%, 0%, ${backgroundColor.blue}%),
+rgb(${backgroundColor.red}%, 100%, ${backgroundColor.blue}%))`;
+
+blueSlider.style.backgroundImage = `linear-gradient(90deg,
+rgb(${backgroundColor.red}%, ${backgroundColor.green}%, 0%),
+rgb(${backgroundColor.red}%, ${backgroundColor.green}%, 100%))`;
+}
+
+update();
+
+</script>
+</body>
+</html>

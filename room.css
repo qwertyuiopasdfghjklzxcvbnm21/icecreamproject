@@ -1,0 +1,41 @@
+img {
+box-sizing: border-box;
+margin: 0;
+}
+
+body#room {
+margin: 0;
+height: 100vh;
+line-height: 0;
+}
+
+body#room img:nth-child(3n) {
+width: 33.4%;
+}
+
+.padlock {
+position: absolute;
+left: 60%;
+height: 6%;
+width: 3% !important;
+}
+
+.padlock.one {
+top: 35%;
+}
+
+.padlock.two {
+top: 45%;
+}
+
+.padlock.three {
+top: 55%;
+}
+
+#knob {
+width: 3%;
+height: 3%;
+position: absolute;
+top: 31%;
+left: 58.5%;
+}
